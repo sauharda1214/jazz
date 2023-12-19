@@ -13,8 +13,16 @@ import {
   IconButton,
   Link,
 } from "@chakra-ui/react";
-import { FaPlay, FaPause, FaVolumeUp, FaForward, FaBackward } from "react-icons/fa";
+import {
+  FaPlay,
+  FaPause,
+  FaVolumeUp,
+  FaForward,
+  FaBackward,
+} from "react-icons/fa";
 import { useState, useEffect } from "react";
+import { Link as ReactRouterLink } from "react-router-dom";
+import { Link as ChakraLink } from "@chakra-ui/react";
 
 const formatTime = (time) => {
   const minutes = Math.floor(time / 60);
@@ -31,6 +39,7 @@ const MusicPlayer = ({
   artistName,
   songName,
   isMusicAvailable,
+  artistURL,
 }) => {
   const [audio, setAudio] = useState(new Audio(songUrl));
   const [isPlaying, setIsPlaying] = useState(false);
@@ -40,11 +49,11 @@ const MusicPlayer = ({
 
   useEffect(() => {
     setAudio(new Audio(songUrl));
-    setVolume(30); 
+    setVolume(30);
   }, [songUrl]);
 
   useEffect(() => {
-    audio.volume = volume / 100; 
+    audio.volume = volume / 100;
   }, [volume, audio]);
 
   useEffect(() => {
@@ -152,9 +161,18 @@ const MusicPlayer = ({
           ml={2}
         />
         <Text display={"flex"} gap={3} fontWeight="bold" color="white">
-          <Link fontWeight={"400"} display={{ base: "none", md: "flex" }}>
+          <ChakraLink
+            as={ReactRouterLink}
+            to={
+              isMusicAvailable
+                ? `/artist/${encodeURIComponent(artistURL)}`
+                : "/"
+            }
+            fontWeight={"400"}
+            display={{ base: "none", md: "flex" }}
+          >
             {isMusicAvailable ? artistName : "Artist Name"}
-          </Link>
+          </ChakraLink>
           <span>
             <Text
               className="marquee"
@@ -174,7 +192,7 @@ const MusicPlayer = ({
       >
         <VStack>
           <HStack gap={3}>
-          <IconButton
+            <IconButton
               rounded={"full"}
               size={"20px"}
               p={2}
