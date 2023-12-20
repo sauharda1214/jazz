@@ -44,7 +44,7 @@ const MusicPlayer = () => {
     artistName,
     songName,
     isMusicAvailable,
-    artistURL,
+    artistID,
   } = currentSong;
 
   const [audio, setAudio] = useState(new Audio(songUrl));
@@ -177,7 +177,7 @@ const MusicPlayer = () => {
             as={ReactRouterLink}
             to={
               isMusicAvailable
-                ? `/artist/${encodeURIComponent(artistURL)}`
+                ? `/artist/${artistID}`
                 : "/"
             }
             fontWeight={"400"}
@@ -252,7 +252,7 @@ const MusicPlayer = () => {
           </Slider>
           <Text color="white" fontSize="sm">
             {formatTime(currentTime)} / {"- "}
-            {formatTime(duration - currentTime)}
+            {formatTime(duration - currentTime+1)}
           </Text>
         </VStack>
         <Box display={"flex"} alignItems={"flex-start"}>

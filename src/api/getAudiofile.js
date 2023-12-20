@@ -1,5 +1,5 @@
 export const getAudio = async (songURL) => {
-  const apiURL = `https://jsv-api.vercel.app/songs?link=${songURL}`.trim();
+  const apiURL = `https://jsv-api.vercel.app/songs?link=${songURL}`;
   try {
     const response = await fetch(apiURL, {
       method: "GET",

@@ -9,7 +9,7 @@ import { AudioContext } from '../src/contexts/AudioContext';
 
 const TrendingSongCard = ({ song }) => {
   const { setCurrentSong } = useContext(AudioContext);
-  const artistURL = song.primaryArtists[0].url;
+  const artistID = song.primaryArtists[0].id;
 
   const handlePlayClick = async () => {
     try {
@@ -22,8 +22,9 @@ const TrendingSongCard = ({ song }) => {
           songName: song.name,
           thumbnail: song.image[2].link,
           isMusicAvailable: true,
-          artistURL: artistURL,
+          artistID: artistID,
         });
+        console.log(artistID)
       }
     } catch (error) {
       console.error('Error fetching MP3 link:', error);
@@ -36,7 +37,7 @@ const TrendingSongCard = ({ song }) => {
       <Link onClick={handlePlayClick} fontSize="xl" fontWeight="semibold" mt="2" isExternal>
         <Text>{song.name}</Text>
       </Link>
-      <ChakraLink as={ReactRouterLink} to={`/artist/${encodeURIComponent(artistURL)}`}>
+      <ChakraLink as={ReactRouterLink} to={`/artist/${artistID}`}>
         {song.primaryArtists[0].name}
       </ChakraLink>
     </Box>
