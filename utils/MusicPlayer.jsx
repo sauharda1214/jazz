@@ -11,7 +11,6 @@ import {
   SliderThumb,
   HStack,
   IconButton,
-  Link,
 } from "@chakra-ui/react";
 import {
   FaPlay,
@@ -23,6 +22,8 @@ import {
 import { useState, useEffect } from "react";
 import { Link as ReactRouterLink } from "react-router-dom";
 import { Link as ChakraLink } from "@chakra-ui/react";
+import { AudioContext } from "../src/contexts/AudioContext";
+import { useContext } from "react";
 
 const formatTime = (time) => {
   const minutes = Math.floor(time / 60);
@@ -33,14 +34,11 @@ const formatTime = (time) => {
   )}`;
 };
 
-const MusicPlayer = ({
-  songUrl,
-  thumbnail,
-  artistName,
-  songName,
-  isMusicAvailable,
-  artistURL,
-}) => {
+const MusicPlayer = () => {
+  const { currentSong } = useContext(AudioContext);
+
+  const { songUrl, thumbnail, artistName, songName, isMusicAvailable, artistURL } = currentSong;
+
   const [audio, setAudio] = useState(new Audio(songUrl));
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(30); // Chakra UI Slider values are between 0 and 100
@@ -77,9 +75,9 @@ const MusicPlayer = ({
   useEffect(() => {
     const playPauseAudio = async () => {
       try {
-        if (isPlaying) {
+        if (isPlaying && audio.paused) {
           await audio.play();
-        } else {
+        } else if (!isPlaying && !audio.paused) {
           audio.pause();
         }
       } catch (error) {
@@ -88,14 +86,11 @@ const MusicPlayer = ({
     };
 
     if (audio.readyState >= 2) {
-      // Audio is loaded and ready to play
       playPauseAudio();
     } else {
-      // Wait for the audio to be loaded
       audio.addEventListener("canplaythrough", playPauseAudio);
     }
 
-    // Cleanup event listener
     return () => {
       audio.removeEventListener("canplaythrough", playPauseAudio);
     };
@@ -122,14 +117,6 @@ const MusicPlayer = ({
     setCurrentTime(newTime);
     audio.currentTime = newTime;
   };
-
-  useEffect(() => {
-    // Autoplay when the song URL changes
-    audio.load();
-    audio.play().then(() => {
-      setIsPlaying(true);
-    });
-  }, [songUrl, audio]);
 
   return (
     <Box

@@ -1,11 +1,11 @@
-/* eslint-disable react/prop-types */
+
 // TrendingTabs.js
 import { Box, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
 import TrendingSongs from "./TrendingSongs";
 import TrendingAlbums from "./TrendingAlbums";
 import TopCharts from "./TopCharts";
 
-const TrendingTabs = ({ setCurrentSong }) => {
+const TrendingTabs = () => {
   return (
     <Box mb={'100px'} mt={'70px'} p="2">
       <Tabs variant='soft-rounded' colorScheme='green' isFitted>
@@ -16,7 +16,7 @@ const TrendingTabs = ({ setCurrentSong }) => {
         </TabList>
         <TabPanels>
           <TabPanel>
-            <TrendingSongs setCurrentSong={setCurrentSong} />
+            <TrendingSongs />
           </TabPanel>
           <TabPanel>
             <TrendingAlbums />
