@@ -6,6 +6,7 @@ import ArtistDetails from "../components/ArtistDetails";
 import AlbumDetails from "../components/AlbumDetails";
 import { AudioProvider } from "./contexts/AudioContext";
 import MusicPlayer from "../utils/MusicPlayer";
+import Search from "../components/Search";
 
 
 const App = () => {
@@ -19,6 +20,7 @@ const App = () => {
           <Route path="/playlist" element={<PlaylistDetails />} />
           <Route path="/album" element={<AlbumDetails />} />
         </Routes>
+        <Search/>
         <MusicPlayer/>
       </AudioProvider>
     </Router>

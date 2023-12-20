@@ -11,6 +11,7 @@ import {
   SliderThumb,
   HStack,
   IconButton,
+  Spinner
 } from "@chakra-ui/react";
 import {
   FaPlay,
@@ -37,13 +38,37 @@ const formatTime = (time) => {
 const MusicPlayer = () => {
   const { currentSong } = useContext(AudioContext);
 
-  const { songUrl, thumbnail, artistName, songName, isMusicAvailable, artistURL } = currentSong;
+  const {
+    songUrl,
+    thumbnail,
+    artistName,
+    songName,
+    isMusicAvailable,
+    artistURL,
+  } = currentSong;
 
   const [audio, setAudio] = useState(new Audio(songUrl));
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(30); // Chakra UI Slider values are between 0 and 100
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setIsLoading(true);
+
+    const loadAudio = async () => {
+      try {
+        audio.load();
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error loading audio:", error);
+        setIsLoading(false);
+      }
+    };
+
+    loadAudio();
+  }, [audio, songUrl]);
 
   useEffect(() => {
     setAudio(new Audio(songUrl));
@@ -147,7 +172,7 @@ const MusicPlayer = () => {
           marginRight="4"
           ml={2}
         />
-        <Text display={"flex"} gap={3} fontWeight="bold" color="white">
+        <Box display={"flex"} gap={3} fontWeight="bold" color="white">
           <ChakraLink
             as={ReactRouterLink}
             to={
@@ -161,15 +186,14 @@ const MusicPlayer = () => {
             {isMusicAvailable ? artistName : "Artist Name"}
           </ChakraLink>
           <span>
-            <Text
+            <Box
               className="marquee"
               width={{ base: "100px", md: "150px", lg: "200px" }}
-              isTruncated
             >
               <span>{isMusicAvailable ? songName : "SONG NAME"}</span>
-            </Text>
+            </Box>
           </span>
-        </Text>
+        </Box>
       </VStack>
       <Flex
         display={"flex"}
@@ -191,7 +215,15 @@ const MusicPlayer = () => {
               size={"20px"}
               p={2}
               icon={
-                isPlaying ? <FaPause size={"15px"} /> : <FaPlay size={"15px"} />
+                isLoading ? (
+                  <Spinner size="sm" color="white" />
+                ) : (
+                  isPlaying ? (
+                    <FaPause size={"15px"} />
+                  ) : (
+                    <FaPlay size={"15px"} />
+                  )
+                )
               }
               onClick={handlePlayPauseClick}
               isDisabled={!isMusicAvailable} // Disable when no music
@@ -219,7 +251,8 @@ const MusicPlayer = () => {
             <SliderThumb />
           </Slider>
           <Text color="white" fontSize="sm">
-            {formatTime(currentTime)} / {formatTime(duration)}
+            {formatTime(currentTime)} / {"- "}
+            {formatTime(duration - currentTime)}
           </Text>
         </VStack>
         <Box display={"flex"} alignItems={"flex-start"}>
