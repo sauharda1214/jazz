@@ -16,6 +16,7 @@ import {
 import { Link as ReactRouterLink } from "react-router-dom";
 import { Link as ChakraLink } from "@chakra-ui/react";
 import { AudioContext } from "../src/contexts/AudioContext";
+import nowplaying from '../src/assets/music.gif'
 
 const AlbumDetails = () => {
   const { albumID } = useParams();
@@ -129,7 +130,7 @@ const SongsCard = ({ song, index }) => {
           height={"50px"}
           borderRadius={"md"}
           objectFit="cover"
-          src={isPlaying? '/public/music.gif' : song.image[2].link}
+          src={isPlaying? nowplaying : song.image[2].link}
           mr={0}
         />
         <Text onClick={handlePlayClick} ml={2} isTruncated>
