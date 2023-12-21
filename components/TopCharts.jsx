@@ -10,6 +10,7 @@ const TopCharts = () => {
     const fetchData = async () => {
       try {
         const data = await fetchModules();
+        setTopCharts(data)
         setTopCharts(data?.data?.charts || []);
       } catch (error) {
         console.error("Error fetching data:", error);

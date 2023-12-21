@@ -10,7 +10,7 @@ const TrendingAlbums = () => {
     const fetchData = async () => {
       try {
         const data = await fetchModules();
-        setTrendingAlbums(data?.data?.albums || []);
+        setTrendingAlbums(data?.data?.trending?.albums || []);
       } catch (error) {
         console.error('Error fetching data:', error);
       }

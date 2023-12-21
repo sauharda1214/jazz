@@ -11,6 +11,8 @@ export const AudioProvider = ({ children }) => {
     songName: null,
     thumbnail: null,
     isMusicAvailable: false,
+    isPlaylist:false,
+    isAlbum:false,
   });
 
   return (

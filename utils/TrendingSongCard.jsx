@@ -23,8 +23,9 @@ const TrendingSongCard = ({ song }) => {
           thumbnail: song.image[2].link,
           isMusicAvailable: true,
           artistID: artistID,
+          isPlaylist:false,
+          isAlbum:false,
         });
-        console.log(artistID)
       }
     } catch (error) {
       console.error('Error fetching MP3 link:', error);

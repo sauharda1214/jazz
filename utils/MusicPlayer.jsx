@@ -49,7 +49,7 @@ const MusicPlayer = () => {
 
   const [audio, setAudio] = useState(new Audio(songUrl));
   const [isPlaying, setIsPlaying] = useState(false);
-  const [volume, setVolume] = useState(30); // Chakra UI Slider values are between 0 and 100
+  const [volume, setVolume] = useState(100); // Chakra UI Slider values are between 0 and 100
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
