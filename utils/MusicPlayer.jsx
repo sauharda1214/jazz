@@ -52,18 +52,18 @@ const MusicPlayer = () => {
   const [volume, setVolume] = useState(100); // Chakra UI Slider values are between 0 and 100
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
-  const [isLoading, setIsLoading] = useState(true);
+
 
   useEffect(() => {
-    setIsLoading(true);
+
 
     const loadAudio = async () => {
       try {
         audio.load();
-        setIsLoading(false);
+
       } catch (error) {
         console.error("Error loading audio:", error);
-        setIsLoading(false);
+
       }
     };
 
@@ -215,7 +215,7 @@ const MusicPlayer = () => {
               size={"20px"}
               p={2}
               icon={
-                isLoading ? (
+                !songUrl ? (
                   <Spinner size="sm" color="white" />
                 ) : (
                   isPlaying ? (

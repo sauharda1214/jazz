@@ -152,6 +152,8 @@ const ArtistSongsCard = ({ song, index }) => {
         thumbnail: song.image[2].link,
         isMusicAvailable: true,
         artistID: song.primaryArtistsId,
+        isPlaylist:false,
+        isAlbum:false,
       });
     }
   };

@@ -19,7 +19,7 @@ const TrendingAlbums = () => {
     fetchData();
   }, []);
   return (
-    <Box p="1" maxWidth="100vw" overflowX="auto">
+    <Box p="1">
     <Heading as="h1" mb="4">
       Trending Albums
     </Heading>

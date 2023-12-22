@@ -5,7 +5,7 @@ import { Link as ChakraLink } from '@chakra-ui/react'
 
 const TopChartCard = ({chart}) => {
   return (
-    <Box  borderWidth="1px" borderRadius="lg" p="2" flexShrink={0}>
+    <Box  borderWidth="1px" borderRadius="lg" p="2" >
       <ChakraLink cursor={'pointer'} as={ReactRouterLink}>
       <Image src={chart.image[2].link} alt={chart.title} />
       </ChakraLink>

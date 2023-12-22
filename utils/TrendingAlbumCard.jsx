@@ -6,7 +6,7 @@ import { Link as ChakraLink } from "@chakra-ui/react";
 const TrendingAlbumCard = ({ album }) => {
   const albumID = album.id;
   return (
-    <Box borderWidth="1px" borderRadius="lg" p="2" flexShrink={0}>
+    <Box borderWidth="1px" borderRadius="lg" p="2" >
       <ChakraLink  as={ReactRouterLink} to={`/albums/${albumID}`}>
         <Image src={album.image[2].link} alt={album.name} />
       </ChakraLink>

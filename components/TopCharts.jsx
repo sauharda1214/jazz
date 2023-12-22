@@ -21,7 +21,7 @@ const TopCharts = () => {
   }, []);
 
   return (
-    <Box p="1" maxWidth="100vw" >
+    <Box p="1">
       <Heading as="h1" mb="4">
         Top Charts
       </Heading>
