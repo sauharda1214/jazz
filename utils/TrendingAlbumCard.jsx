@@ -12,7 +12,7 @@ const TrendingAlbumCard = ({ album }) => {
 
       <ChakraLink
         as={ReactRouterLink}
-        to={`/albums/${albumID}`}
+        to={`/album/${albumID}`}
         fontSize="xl"
         fontWeight="semibold"
         mt="2"
