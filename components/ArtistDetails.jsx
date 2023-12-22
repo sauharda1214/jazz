@@ -157,7 +157,7 @@ const ArtistSongsCard = ({ song, index }) => {
   };
   return (
     <>
-      <Flex cursor={"pointer"} w={"100%"} alignItems={"center"} ml={2}>
+      <Flex cursor={"pointer"} w={"100%"} alignItems={"center"} m={2}>
         <Text fontSize={"x-large"}>{index + 1}) </Text>
         <Image
           onClick={handlePlayClick}
