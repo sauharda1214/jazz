@@ -2,7 +2,6 @@
 import {
   Box,
   Text,
-  Link,
   Badge,
   Center,
   Spinner,
@@ -34,10 +33,8 @@ const ArtistDetails = () => {
         const artistData = {
           image: data?.data?.image[2].link || "/vite.svg",
           name: data?.data?.name,
-          wikipediaUrl: data?.data?.wiki,
           isVerified: data?.data?.isVerified,
           dominantLanguage: data?.data?.dominantLanguage,
-          dominantType: data?.data?.dominantType,
         };
         setArtist(artistData);
       } catch (error) {
@@ -109,15 +106,11 @@ const ArtistDetails = () => {
                 {artist.isVerified ? "Verified" : "Not Verified"}
               </Badge>
             </Text>
-            <Link href={artist.wikipediaUrl} color="teal.500" isExternal mb={2}>
-              Wikipedia
-            </Link>
           </Flex>
 
           <Text fontSize="md" mb={2}>
             Dominant Language: {artist.dominantLanguage}
           </Text>
-          <Text fontSize="md">Dominant Type: {artist.dominantType}</Text>
         </Flex>
       </Box>
 
