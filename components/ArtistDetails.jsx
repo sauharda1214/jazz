@@ -180,7 +180,7 @@ const ArtistSongsCard = ({ song, index }) => {
           </Text>
           <IconButton
             onClick={() => {
-              downloadSong(null, song.name, song.downloadUrl[4].link);
+              downloadSong("", song.name, song.downloadUrl[4].link);
             }}
             icon={<BsDownload />}
             mr={2}

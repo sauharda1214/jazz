@@ -4,7 +4,7 @@ import { getAudio } from "../src/api/getAudiofile";
 export async function downloadSong(url,filename, mp4url ) {
   try {
     let data;
-    if(url != null){
+    if(url != ""){
       data = await getAudio(formattedURL(url));
     }
     let downloadURL = mp4url || (data?.data[0]?.downloadUrl[4]?.link);

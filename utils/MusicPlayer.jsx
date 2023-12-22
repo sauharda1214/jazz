@@ -254,7 +254,7 @@ const MusicPlayer = () => {
             </Text>
             <IconButton
               onClick={() => {
-                downloadSong(null, songName, songUrl);
+                downloadSong("", songName, songUrl);
               }}
               display={!songUrl ? 'none' : 'block'}
               isDisabled={!songUrl}
