@@ -11,7 +11,7 @@ import {
   SliderThumb,
   HStack,
   IconButton,
-  Spinner
+  Spinner,
 } from "@chakra-ui/react";
 import {
   FaPlay,
@@ -53,17 +53,12 @@ const MusicPlayer = () => {
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
 
-
   useEffect(() => {
-
-
     const loadAudio = async () => {
       try {
         audio.load();
-
       } catch (error) {
         console.error("Error loading audio:", error);
-
       }
     };
 
@@ -72,7 +67,7 @@ const MusicPlayer = () => {
 
   useEffect(() => {
     setAudio(new Audio(songUrl));
-    setVolume(30);
+    setVolume(100);
   }, [songUrl]);
 
   useEffect(() => {
@@ -124,7 +119,7 @@ const MusicPlayer = () => {
   useEffect(() => {
     // Pause the previous song when a new one is played
     return () => {
-      audio.pause();
+      audio.remove()
       setCurrentTime(0);
     };
   }, [audio]);
@@ -175,11 +170,7 @@ const MusicPlayer = () => {
         <Box display={"flex"} gap={3} fontWeight="bold" color="white">
           <ChakraLink
             as={ReactRouterLink}
-            to={
-              isMusicAvailable
-                ? `/artist/${artistID}`
-                : "/"
-            }
+            to={isMusicAvailable ? `/artist/${artistID}` : "/"}
             fontWeight={"400"}
             display={{ base: "none", md: "flex" }}
           >
@@ -217,12 +208,10 @@ const MusicPlayer = () => {
               icon={
                 !songUrl ? (
                   <Spinner size="sm" color="white" />
+                ) : isPlaying ? (
+                  <FaPause size={"15px"} />
                 ) : (
-                  isPlaying ? (
-                    <FaPause size={"15px"} />
-                  ) : (
-                    <FaPlay size={"15px"} />
-                  )
+                  <FaPlay size={"15px"} />
                 )
               }
               onClick={handlePlayPauseClick}
@@ -252,7 +241,7 @@ const MusicPlayer = () => {
           </Slider>
           <Text color="white" fontSize="sm">
             {formatTime(currentTime)} / {"- "}
-            {formatTime(duration - currentTime+1)}
+            {formatTime(duration - currentTime + 1)}
           </Text>
         </VStack>
         <Box display={"flex"} alignItems={"flex-start"}>

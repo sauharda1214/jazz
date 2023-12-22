@@ -53,6 +53,8 @@ const TrendingSongCard = ({ song }) => {
             gap={2}
             cursor={"pointer"}
             onClick={()=>{downloadSong(song.url,song.name)}}
+            _hover={{background:'none'}}
+            background={'none'}
           >
             <Text>Download</Text>
             <IconButton isRound icon={<BsDownload />} />
