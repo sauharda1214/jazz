@@ -20,6 +20,11 @@ const TrendingSongCard = ({ song }) => {
   const artistID = song.primaryArtists[0].id;
 
   const handlePlayClick = async () => {
+    if (!song.url) {
+      console.error("Song URL is null");
+      return;
+    }
+
     try {
       const data = await getAudio(formattedURL(song.url));
       if (data) {
@@ -46,7 +51,7 @@ const TrendingSongCard = ({ song }) => {
         size={"sm"}
         m={2}
         onClick={() => {
-          downloadSong(song.url, song.name);
+          downloadSong(song.url, song.name,"");
         }}
         isRound
         icon={<BsDownload />}

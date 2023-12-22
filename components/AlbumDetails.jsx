@@ -12,11 +12,14 @@ import {
   Spinner,
   Flex,
   VStack,
-  Link as ChakraLink
+  Link as ChakraLink,
+  IconButton,
 } from "@chakra-ui/react";
 import { Link as ReactRouterLink } from "react-router-dom";
 import { AudioContext } from "../src/contexts/AudioContext";
-import nowplaying from '../src/assets/music.gif'
+import nowplaying from "../src/assets/music.gif";
+import { BsDownload } from "react-icons/bs";
+import { downloadSong } from "../utils/downloadSongs";
 
 const AlbumDetails = () => {
   const { albumID } = useParams();
@@ -102,12 +105,12 @@ const AlbumDetails = () => {
 
 const SongsCard = ({ song, index }) => {
   const { setCurrentSong } = useContext(AudioContext);
-  const [isPlaying,setIsPlaying] = useState(false)
+  const [isPlaying, setIsPlaying] = useState(false);
 
   const handlePlayClick = async () => {
     if (song) {
       document.title = `${song.primaryArtists} - ${song.name}`;
-      setIsPlaying(true)
+      setIsPlaying(true);
       setCurrentSong({
         songUrl: song.downloadUrl[4].link,
         artistName: song.primaryArtists,
@@ -130,12 +133,20 @@ const SongsCard = ({ song, index }) => {
           height={"50px"}
           borderRadius={"md"}
           objectFit="cover"
-          src={isPlaying? nowplaying : song.image[2].link}
+          src={isPlaying ? nowplaying : song.image[2].link}
           mr={0}
         />
-        <Text onClick={handlePlayClick} ml={2} isTruncated>
-          {song.name}
-        </Text>
+        <Box isTruncated display={"flex"} alignItems={"center"} gap={4} ml={2}>
+          <Text onClick={handlePlayClick} ml={2} isTruncated>
+            {song.name}
+          </Text>
+          <IconButton
+            onClick={() => {
+              downloadSong("", song.name, song.downloadUrl[4].link);
+            }}
+            icon={<BsDownload />}
+          />
+        </Box>
       </Flex>
     </>
   );
