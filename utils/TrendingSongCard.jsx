@@ -6,6 +6,7 @@ import { formattedURL } from '../utils/getFormattedURL';
 import { Link as ReactRouterLink } from 'react-router-dom';
 import { Link as ChakraLink } from '@chakra-ui/react';
 import { AudioContext } from '../src/contexts/AudioContext';
+import songHistory from './songHistory'
 
 const TrendingSongCard = ({ song }) => {
   const { setCurrentSong } = useContext(AudioContext);
@@ -33,10 +34,10 @@ const TrendingSongCard = ({ song }) => {
   };
 
   return (
-    <Box borderWidth="1px" borderRadius="lg" p="2" flexShrink={0}>
+    <Box borderWidth="1px" borderRadius="lg" p="2" >
       <Image onClick={handlePlayClick} src={song.image[2].link} alt={song.name} />
       <Link onClick={handlePlayClick} fontSize="xl" fontWeight="semibold" mt="2" isExternal>
-        <Text>{song.name}</Text>
+        <Text maxW={'100%'}>{song.name}</Text>
       </Link>
       <ChakraLink as={ReactRouterLink} to={`/artist/${artistID}`}>
         {song.primaryArtists[0].name}

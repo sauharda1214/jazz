@@ -1,7 +1,7 @@
 
 
 export const getArtistSongs = async (artistID) => {
-    const apiURL = `https://jsv-api.vercel.app/artists/${artistID}/songs?page=1`;
+    const apiURL = `https://saavn.me/artists/${artistID}/songs?page=1`;
     try {
       const response = await fetch(apiURL, {
         method: "GET",
@@ -17,7 +17,6 @@ export const getArtistSongs = async (artistID) => {
   
       // Parse the JSON from the response
       const data = await response.json();
-      console.log(data)
       return data;
     } catch (error) {
       // Handle any errors that occurred during the fetch

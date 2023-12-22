@@ -20,18 +20,17 @@ const TrendingSongs = () => {
     fetchData();
   }, []);
   return (
-    <Box p="1" maxWidth="100vw" overflowX="auto">
+    <Box p="1">
       <Heading as="h1" mb="4">
         Trending Songs
       </Heading>
       <Grid
         templateColumns={{
-          base: "repeat(2, 1fr)",
+          base: "repeat(2, 2fr)",
           md: "repeat(4, 1fr)",
           lg: "repeat(5, 1fr)",
         }}
         gap={4}
-        overflowX="auto"
       >
         {trendingSongs.map((song, index) => (
           <TrendingSongCard key={index} song={song} />

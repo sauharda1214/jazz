@@ -1,2 +1,4 @@
 
-export let songHitory = []
+let songHitory = [];
+
+export default songHitory
