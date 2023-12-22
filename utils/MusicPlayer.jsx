@@ -233,7 +233,7 @@ const MusicPlayer = () => {
             onChange={handleSeekChange}
             onChangeStart={() => setIsPlaying(false)} // Pause when user starts dragging
             onChangeEnd={() => setIsPlaying(true)} // Resume when user stops dragging
-            value={isMusicAvailable ? (currentTime / duration) * 100 : 0} // Set to 0 when no music
+            value={isMusicAvailable ? (isNaN(currentTime) || isNaN(duration) ? 0 : (currentTime / duration) * 100) : 0}// Set to 0 when no music
             isDisabled={!isMusicAvailable} // Disable when no music
           >
             <SliderTrack>
@@ -267,7 +267,7 @@ const MusicPlayer = () => {
         <Box display={"flex"} alignItems={"flex-start"}>
           <Slider
             aria-label="slider-ex-3"
-            defaultValue={volume}
+            defaultValue={isNaN(volume) ? 0 : volume}
             orientation="vertical"
             h={"70px"}
             onChange={handleVolumeChange}
