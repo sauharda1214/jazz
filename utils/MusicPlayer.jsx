@@ -12,6 +12,7 @@ import {
   HStack,
   IconButton,
   Spinner,
+  Link as ChakraLink 
 } from "@chakra-ui/react";
 import {
   FaPlay,
@@ -22,7 +23,6 @@ import {
 } from "react-icons/fa";
 import { useState, useEffect } from "react";
 import { Link as ReactRouterLink } from "react-router-dom";
-import { Link as ChakraLink } from "@chakra-ui/react";
 import { AudioContext } from "../src/contexts/AudioContext";
 import { useContext } from "react";
 import { BsDownload } from "react-icons/bs";

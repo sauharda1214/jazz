@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
-import { Box, Image, Text } from "@chakra-ui/react";
+import { Box, Image, Text,Link as ChakraLink  } from "@chakra-ui/react";
 import { Link as ReactRouterLink } from "react-router-dom";
-import { Link as ChakraLink } from "@chakra-ui/react";
 
 const TrendingAlbumCard = ({ album }) => {
   const albumID = album.id;

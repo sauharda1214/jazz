@@ -1,14 +1,13 @@
 import {
   Drawer,
   DrawerBody,
-  DrawerFooter,
   DrawerHeader,
   DrawerOverlay,
   DrawerContent,
   DrawerCloseButton,
   IconButton,
+  useDisclosure
 } from "@chakra-ui/react";
-import { useDisclosure } from "@chakra-ui/react";
 import { FiAlignJustify } from "react-icons/fi";
 
 const Menu = () => {

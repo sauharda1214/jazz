@@ -1,12 +1,18 @@
 /* eslint-disable react/prop-types */
 import { useContext } from "react";
-import { Box, Image, Text, Link, IconButton } from "@chakra-ui/react";
+import {
+  Box,
+  Image,
+  Text,
+  Link,
+  IconButton,
+  Link as ChakraLink,
+} from "@chakra-ui/react";
 import { getAudio } from "../src/api/getAudiofile";
 import { formattedURL } from "../utils/getFormattedURL";
 import { Link as ReactRouterLink } from "react-router-dom";
-import { Link as ChakraLink } from "@chakra-ui/react";
 import { AudioContext } from "../src/contexts/AudioContext";
-import { BsDownload} from "react-icons/bs";
+import { BsDownload } from "react-icons/bs";
 import { downloadSong } from "./downloadSongs";
 
 const TrendingSongCard = ({ song }) => {
@@ -36,7 +42,15 @@ const TrendingSongCard = ({ song }) => {
 
   return (
     <Box borderWidth="1px" borderRadius="lg" p="2">
-<IconButton size={'sm'} m={2} onClick={()=>{downloadSong(song.url,song.name)}} isRound icon={<BsDownload />} />
+      <IconButton
+        size={"sm"}
+        m={2}
+        onClick={() => {
+          downloadSong(song.url, song.name);
+        }}
+        isRound
+        icon={<BsDownload />}
+      />
       <Image
         onClick={handlePlayClick}
         src={song.image[2].link}
