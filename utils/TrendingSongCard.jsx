@@ -6,8 +6,7 @@ import { formattedURL } from "../utils/getFormattedURL";
 import { Link as ReactRouterLink } from "react-router-dom";
 import { Link as ChakraLink } from "@chakra-ui/react";
 import { AudioContext } from "../src/contexts/AudioContext";
-import { BsDownload, BsThreeDotsVertical } from "react-icons/bs";
-import { Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
+import { BsDownload} from "react-icons/bs";
 import { downloadSong } from "./downloadSongs";
 
 const TrendingSongCard = ({ song }) => {
@@ -37,30 +36,7 @@ const TrendingSongCard = ({ song }) => {
 
   return (
     <Box borderWidth="1px" borderRadius="lg" p="2">
-      <Menu>
-        <MenuButton
-          m={2}
-          isRound
-          as={IconButton}
-          icon={<BsThreeDotsVertical />}
-        >
-          Actions
-        </MenuButton>
-        <MenuList>
-          <MenuItem
-            display={"flex"}
-            alignItems={"center"}
-            gap={2}
-            cursor={"pointer"}
-            onClick={()=>{downloadSong(song.url,song.name)}}
-            _hover={{background:'none'}}
-            background={'none'}
-          >
-            <Text>Download</Text>
-            <IconButton isRound icon={<BsDownload />} />
-          </MenuItem>
-        </MenuList>
-      </Menu>
+<IconButton size={'sm'} m={2} onClick={()=>{downloadSong(song.url,song.name)}} isRound icon={<BsDownload />} />
       <Image
         onClick={handlePlayClick}
         src={song.image[2].link}
