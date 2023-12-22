@@ -25,6 +25,8 @@ import { Link as ReactRouterLink } from "react-router-dom";
 import { Link as ChakraLink } from "@chakra-ui/react";
 import { AudioContext } from "../src/contexts/AudioContext";
 import { useContext } from "react";
+import { BsDownload } from "react-icons/bs";
+import { downloadSong } from "./downloadSongs";
 
 const formatTime = (time) => {
   const minutes = Math.floor(time / 60);
@@ -119,7 +121,7 @@ const MusicPlayer = () => {
   useEffect(() => {
     // Pause the previous song when a new one is played
     return () => {
-      audio.remove()
+      audio.remove();
       setCurrentTime(0);
     };
   }, [audio]);
@@ -239,10 +241,28 @@ const MusicPlayer = () => {
             </SliderTrack>
             <SliderThumb />
           </Slider>
-          <Text color="white" fontSize="sm">
-            {formatTime(currentTime)} / {"- "}
-            {formatTime(duration - currentTime + 1)}
-          </Text>
+          <Box
+            display={"flex"}
+            alignItems={"center"}
+            gap={2}
+            color="white"
+            fontSize="sm"
+          >
+            <Text>
+              {formatTime(currentTime)} / {"- "}
+              {formatTime(duration - currentTime + 1)}
+            </Text>
+            <IconButton
+              onClick={() => {
+                downloadSong(null, songName, songUrl);
+              }}
+              display={!songUrl ? 'none' : 'block'}
+              isDisabled={!songUrl}
+              size={"sm"}
+              isRound
+              icon={<BsDownload color="green" />}
+            />
+          </Box>
         </VStack>
         <Box display={"flex"} alignItems={"flex-start"}>
           <Slider

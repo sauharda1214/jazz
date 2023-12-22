@@ -19,6 +19,8 @@ import { FaHeart } from "react-icons/fa";
 import { getArtistSongs } from "../src/api/getArtistSongs";
 import { AudioContext } from "../src/contexts/AudioContext";
 import nowplaying from "../src/assets/music.gif";
+import { BsDownload } from "react-icons/bs";
+import { downloadSong } from "../utils/downloadSongs";
 
 const ArtistDetails = () => {
   const { artistID } = useParams();
@@ -152,8 +154,8 @@ const ArtistSongsCard = ({ song, index }) => {
         thumbnail: song.image[2].link,
         isMusicAvailable: true,
         artistID: song.primaryArtistsId,
-        isPlaylist:false,
-        isAlbum:false,
+        isPlaylist: false,
+        isAlbum: false,
       });
     }
   };
@@ -172,9 +174,18 @@ const ArtistSongsCard = ({ song, index }) => {
           src={isPlaying ? nowplaying : song.image[2].link}
           mr={0}
         />
-        <Text onClick={handlePlayClick} ml={2} isTruncated>
-          {song.name}
-        </Text>
+        <Box isTruncated display={'flex'} alignItems={"center"} gap={4} ml={2}>
+          <Text onClick={handlePlayClick} isTruncated>
+            {song.name}
+          </Text>
+          <IconButton
+            onClick={() => {
+              downloadSong(null, song.name, song.downloadUrl[4].link);
+            }}
+            icon={<BsDownload />}
+            mr={2}
+          />
+        </Box>
       </Flex>
     </>
   );

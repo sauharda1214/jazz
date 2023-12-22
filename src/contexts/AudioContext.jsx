@@ -7,7 +7,7 @@ export const AudioContext = createContext();
 // eslint-disable-next-line react/prop-types
 export const AudioProvider = ({ children }) => {
   const [currentSong, setCurrentSong] = useState({
-    songUrl: "",
+    songUrl: null,
     artistName: null,
     songName: null,
     thumbnail: null,
