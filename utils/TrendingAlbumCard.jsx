@@ -6,7 +6,7 @@ const TrendingAlbumCard = ({ album }) => {
   const albumID = album.id;
   return (
     <Box borderWidth="1px" borderRadius="lg" p="2" >
-      <ChakraLink  as={ReactRouterLink} to={`/albums/${albumID}`}>
+      <ChakraLink  as={ReactRouterLink} to={`/album/${albumID}`}>
         <Image src={album.image[2].link} alt={album.name} />
       </ChakraLink>
 

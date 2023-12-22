@@ -22,7 +22,7 @@ import { BsDownload } from "react-icons/bs";
 import { downloadSong } from "../utils/downloadSongs";
 
 const AlbumDetails = () => {
-  const { albumID } = useParams();
+  const { id:albumID } = useParams();
   const [albums, setAlbums] = useState(null);
 
   useEffect(() => {
