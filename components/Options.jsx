@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { FiAlignJustify } from "react-icons/fi";
 
-const Menu = () => {
+const Options = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleClick = () => {
@@ -46,4 +46,4 @@ const Menu = () => {
   );
 };
 
-export default Menu;
+export default Options;

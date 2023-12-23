@@ -1,7 +1,8 @@
-import { Box, Text } from "@chakra-ui/react";
-import Menu from "./Menu";
+import { Box, Input } from "@chakra-ui/react";
+import Options from "./Options";
 
 const Search = () => {
+
   return (
     <Box
       h={"70px"}
@@ -12,12 +13,20 @@ const Search = () => {
       left={0}
       w={"100%"}
       pos={"fixed"}
-      zIndex={"999"}
+      zIndex={"1001"}
     >
-      <Menu />
-      <Text>SEARCH</Text>
+      <Options />
+      <Input
+        isTruncated
+        placeholder={`Search for albums, artists, songs`}
+        type="text"
+        variant={"filled"}
+        rounded={"full"}
+        mr={3}
+
+      />
+      <Box mr={3}></Box>
     </Box>
   );
 };
-
-export default Search;
+export default Search

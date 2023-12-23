@@ -17,7 +17,6 @@ import { useState, useEffect, useContext } from "react";
 import { FaHeart } from "react-icons/fa";
 import { getArtistSongs } from "../src/api/getArtistSongs";
 import { AudioContext } from "../src/contexts/AudioContext";
-import nowplaying from "../src/assets/music.gif";
 import { BsDownload } from "react-icons/bs";
 import { downloadSong } from "../utils/downloadSongs";
 
@@ -134,14 +133,13 @@ const ArtistDetails = () => {
 
 const ArtistSongsCard = ({ song, index }) => {
   const { setCurrentSong } = useContext(AudioContext);
-  const [isPlaying, setIsPlaying] = useState(false);
 
   const handlePlayClick = async () => {
     if (song) {
       document.title = `${song.primaryArtists} - ${song.name}`;
-      setIsPlaying(true);
       setCurrentSong({
         songUrl: song.downloadUrl[4].link,
+        songId:song.id,
         artistName: song.primaryArtists,
         songName: song.name,
         thumbnail: song.image[2].link,
@@ -164,7 +162,7 @@ const ArtistSongsCard = ({ song, index }) => {
           height={"50px"}
           borderRadius={"md"}
           objectFit="cover"
-          src={isPlaying ? nowplaying : song.image[2].link}
+          src={ song.image[2].link}
           mr={0}
         />
         <Box isTruncated display={'flex'} alignItems={"center"} gap={4} ml={2}>

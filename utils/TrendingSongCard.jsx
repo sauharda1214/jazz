@@ -31,6 +31,7 @@ const TrendingSongCard = ({ song }) => {
         document.title = `${song.primaryArtists[0].name} - ${song.name}`;
         setCurrentSong({
           songUrl: data?.data[0]?.downloadUrl[4]?.link,
+          songId:song.id,
           artistName: song.primaryArtists[0].name,
           songName: song.name,
           thumbnail: song.image[2].link,

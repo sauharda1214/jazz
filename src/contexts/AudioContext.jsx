@@ -8,9 +8,9 @@ export const AudioContext = createContext();
 export const AudioProvider = ({ children }) => {
   const [currentSong, setCurrentSong] = useState({
     songUrl: "",
-    artistName: null,
-    songName: null,
-    thumbnail: null,
+    artistName: "",
+    songName: "",
+    thumbnail: "",
     isMusicAvailable: false,
     isPlaylist:false,
     isAlbum:false,

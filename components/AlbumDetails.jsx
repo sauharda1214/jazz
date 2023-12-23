@@ -29,7 +29,6 @@ const AlbumDetails = () => {
     const fetchAlbumDetails = async () => {
       try {
         const data = await getAlbumDetails(albumID);
-        console.log(data);
         setAlbums(data || null);
       } catch (error) {
         console.error("Error fetching album details:", error);
@@ -113,6 +112,7 @@ const SongsCard = ({ song, index }) => {
       setIsPlaying(true);
       setCurrentSong({
         songUrl: song.downloadUrl[4].link,
+        songId:song.id,
         artistName: song.primaryArtists,
         songName: song.name,
         thumbnail: song.image[2].link,

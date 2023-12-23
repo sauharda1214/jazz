@@ -3,16 +3,17 @@ import {
   Box,
   Flex,
   Text,
-  Slider,
   Image,
   VStack,
-  SliderTrack,
-  SliderFilledTrack,
-  SliderThumb,
   HStack,
   IconButton,
   Spinner,
-  Link as ChakraLink 
+  Link as ChakraLink,
+  Slider,
+  SliderThumb,
+  SliderFilledTrack,
+  SliderTrack,
+  useMediaQuery,
 } from "@chakra-ui/react";
 import {
   FaPlay,
@@ -25,7 +26,7 @@ import { useState, useEffect } from "react";
 import { Link as ReactRouterLink } from "react-router-dom";
 import { AudioContext } from "../src/contexts/AudioContext";
 import { useContext } from "react";
-import { BsDownload } from "react-icons/bs";
+import { BsDownload, BsFullscreen } from "react-icons/bs";
 import { downloadSong } from "./downloadSongs";
 
 const formatTime = (time) => {
@@ -38,10 +39,12 @@ const formatTime = (time) => {
 };
 
 const MusicPlayer = () => {
+  const [isLargerThan600] = useMediaQuery("(min-width: 600px)");
   const { currentSong } = useContext(AudioContext);
 
   const {
     songUrl,
+    songId,
     thumbnail,
     artistName,
     songName,
@@ -147,7 +150,7 @@ const MusicPlayer = () => {
       bottom={0}
       left={0}
       width="100vw"
-      height="100px"
+      height="120px"
       padding="10px"
       bgColor="gray.800"
       display="flex"
@@ -157,9 +160,10 @@ const MusicPlayer = () => {
     >
       <VStack
         ml={{ base: "0", md: "6", lg: "6" }}
-        spacing={1 / 2}
+        spacing={2}
         marginLeft="1"
       >
+        <ChakraLink to={!songId ? '/' : `/song/${songId}`}  as={ReactRouterLink}>
         <Image
           boxSize="50px"
           objectFit="cover"
@@ -169,6 +173,8 @@ const MusicPlayer = () => {
           marginRight="4"
           ml={2}
         />
+        </ChakraLink>
+
         <Box display={"flex"} gap={3} fontWeight="bold" color="white">
           <ChakraLink
             as={ReactRouterLink}
@@ -194,18 +200,18 @@ const MusicPlayer = () => {
         justifyContent={"center"}
         flex={1}
       >
-        <VStack>
+        <VStack gap={4}>
           <HStack gap={3}>
             <IconButton
               rounded={"full"}
-              size={"20px"}
+              size={"sm"}
               p={2}
               icon={<FaBackward />}
               isDisabled={!isMusicAvailable} // Disable when no music
             />
             <IconButton
               rounded={"full"}
-              size={"20px"}
+              size={"sm"}
               p={2}
               icon={
                 !songUrl ? (
@@ -221,30 +227,42 @@ const MusicPlayer = () => {
             />
             <IconButton
               rounded={"full"}
-              size={"20px"}
+              size={"sm"}
               p={2}
               icon={<FaForward />}
               isDisabled={!isMusicAvailable} // Disable when no music
             />
           </HStack>
-          <Slider
-            w={{ base: "150px", md: "300px", lg: "450px" }}
-            aria-label="slider-ex-1"
-            onChange={handleSeekChange}
-            onChangeStart={() => setIsPlaying(false)} // Pause when user starts dragging
-            onChangeEnd={() => setIsPlaying(true)} // Resume when user stops dragging
-            value={isMusicAvailable ? (isNaN(currentTime) || isNaN(duration) ? 0 : (currentTime / duration) * 100) : 0}// Set to 0 when no music
-            isDisabled={!isMusicAvailable} // Disable when no music
-          >
-            <SliderTrack>
-              <SliderFilledTrack />
-            </SliderTrack>
-            <SliderThumb />
-          </Slider>
+          {/* Replace Chakra UI Slider with input type="range" */}
+          <input
+            type="range"
+            min="0"
+            max="100"
+            value={
+              isMusicAvailable
+                ? isNaN(currentTime) || isNaN(duration)
+                  ? 0
+                  : (currentTime / duration) * 100
+                : 0
+            }
+            onChange={(e) => handleSeekChange(Number(e.target.value))}
+            onMouseDown={() => setIsPlaying(false)}
+            onMouseUp={() => setIsPlaying(true)}
+            disabled={!isMusicAvailable}
+            style={{
+              width: `${isLargerThan600 ? "300px" : "150px"}`,
+              height: "6px",
+              outline: "none",
+              border: "none",
+              margin: "0",
+              padding: "0",
+              cursor: "pointer",
+            }}
+          />
           <Box
             display={"flex"}
             alignItems={"center"}
-            gap={2}
+            gap={4}
             color="white"
             fontSize="sm"
           >
@@ -256,12 +274,20 @@ const MusicPlayer = () => {
               onClick={() => {
                 downloadSong("", songName, songUrl);
               }}
-              display={!songUrl ? 'none' : 'block'}
+              display={!songUrl ? "none" : "block"}
               isDisabled={!songUrl}
               size={"sm"}
               isRound
               icon={<BsDownload color="green" />}
             />
+            <ChakraLink as={ReactRouterLink} to={`/song/${songId}`}>
+              <IconButton
+                isDisabled={!songUrl}
+                isRound
+                icon={<BsFullscreen />}
+                size={'sm'}
+              />
+            </ChakraLink>
           </Box>
         </VStack>
         <Box display={"flex"} alignItems={"flex-start"}>
