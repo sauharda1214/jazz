@@ -15,19 +15,16 @@ import {
   SliderTrack,
   useMediaQuery,
 } from "@chakra-ui/react";
-import {
-  FaPlay,
-  FaPause,
-  FaVolumeUp,
-  FaForward,
-  FaBackward,
-} from "react-icons/fa";
+import { FaPlay, FaPause, FaVolumeUp} from "react-icons/fa";
 import { useState, useEffect } from "react";
 import { Link as ReactRouterLink } from "react-router-dom";
 import { AudioContext } from "../src/contexts/AudioContext";
 import { useContext } from "react";
 import { BsDownload, BsFullscreen } from "react-icons/bs";
 import { downloadSong } from "./downloadSongs";
+import songHistory from "./songHistory";
+import Previous from "../components/controls/Previous";
+import Next from "../components/controls/Next";
 
 const formatTime = (time) => {
   const minutes = Math.floor(time / 60);
@@ -51,6 +48,26 @@ const MusicPlayer = () => {
     isMusicAvailable,
     artistID,
   } = currentSong;
+
+  if (songUrl != "") {
+    const isSongInHistory = songHistory.some(
+      (historyItem) => historyItem.songId === songId
+    );
+
+    if (!isSongInHistory) {
+      songHistory.push({
+        songUrl: songUrl,
+        songId: songId,
+        artistName: artistName,
+        songName: songName,
+        thumbnail: thumbnail,
+        isMusicAvailable: true,
+        artistID: artistID,
+      });
+
+      sessionStorage.setItem("songHistory", JSON.stringify(songHistory));
+    }
+  }
 
   const [audio, setAudio] = useState(new Audio(songUrl));
   const [isPlaying, setIsPlaying] = useState(false);
@@ -158,21 +175,17 @@ const MusicPlayer = () => {
       alignItems="center"
       justifyContent="center"
     >
-      <VStack
-        ml={{ base: "0", md: "6", lg: "6" }}
-        spacing={2}
-        marginLeft="1"
-      >
-        <ChakraLink to={!songId ? '/' : `/song/${songId}`}  as={ReactRouterLink}>
-        <Image
-          boxSize="50px"
-          objectFit="cover"
-          borderRadius="md"
-          src={isMusicAvailable ? thumbnail : "/vite.svg"}
-          alt="Album Thumbnail"
-          marginRight="4"
-          ml={2}
-        />
+      <VStack ml={{ base: "0", md: "6", lg: "6" }} spacing={2} marginLeft="1">
+        <ChakraLink to={!songId ? "/" : `/song/${songId}`} as={ReactRouterLink}>
+          <Image
+            boxSize="50px"
+            objectFit="cover"
+            borderRadius="md"
+            src={isMusicAvailable ? thumbnail : "/vite.svg"}
+            alt="Album Thumbnail"
+            marginRight="4"
+            ml={2}
+          />
         </ChakraLink>
 
         <Box display={"flex"} gap={3} fontWeight="bold" color="white">
@@ -206,9 +219,10 @@ const MusicPlayer = () => {
               rounded={"full"}
               size={"sm"}
               p={2}
-              icon={<FaBackward />}
-              isDisabled={!isMusicAvailable} // Disable when no music
+              icon={<Previous />}
+              isDisabled={!isMusicAvailable}
             />
+
             <IconButton
               rounded={"full"}
               size={"sm"}
@@ -229,7 +243,7 @@ const MusicPlayer = () => {
               rounded={"full"}
               size={"sm"}
               p={2}
-              icon={<FaForward />}
+              icon={<Next/>}
               isDisabled={!isMusicAvailable} // Disable when no music
             />
           </HStack>
@@ -285,7 +299,7 @@ const MusicPlayer = () => {
                 isDisabled={!songUrl}
                 isRound
                 icon={<BsFullscreen />}
-                size={'sm'}
+                size={"sm"}
               />
             </ChakraLink>
           </Box>

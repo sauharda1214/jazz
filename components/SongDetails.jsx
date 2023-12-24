@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useState, useEffect,useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { AudioContext } from "../src/contexts/AudioContext";
 import { getSongDetails } from "../src/api/getSongDetails";
 import {
@@ -44,14 +44,13 @@ const SongDetails = () => {
       </>
     );
   }
-  console.log(songDetails);
 
   const handlePlayClick = async () => {
     if (songDetails) {
       document.title = `${songDetails?.data[0]?.primaryArtists} - ${songDetails?.data[0]?.name}`;
       setCurrentSong({
         songUrl: songDetails?.data[0]?.downloadUrl[4].link,
-        songId:songDetails?.data[0]?.id,
+        songId: songDetails?.data[0]?.id,
         artistName: songDetails?.data[0]?.primaryArtists,
         songName: songDetails?.data[0]?.name,
         thumbnail: songDetails?.data[0]?.image[2].link,
@@ -62,6 +61,7 @@ const SongDetails = () => {
       });
     }
   };
+
   return (
     <Box p={2}>
       <Box
@@ -86,7 +86,7 @@ const SongDetails = () => {
             isRound
             icon={<BsDownload />}
           />
-          <IconButton onClick={handlePlayClick} isRound icon={<FaPlay/>}/>
+          <IconButton onClick={handlePlayClick} isRound icon={<FaPlay />} />
         </Flex>
         <Image
           borderRadius="md"
@@ -107,13 +107,12 @@ const SongDetails = () => {
             flexDir={"column"}
           >
             <Text p={2} display={"flex"} gap={2}>
-              <Badge colorScheme="green" variant="subtle" >
+              <Badge colorScheme="green" variant="subtle">
                 {songDetails?.data[0]?.year}
               </Badge>
-              <Badge colorScheme="purple" variant="subtle" >
+              <Badge colorScheme="purple" variant="subtle">
                 {songDetails?.data[0]?.label}
               </Badge>
-
               <Badge colorScheme="red">{songDetails?.data[0]?.language}</Badge>
             </Text>
 
@@ -124,13 +123,11 @@ const SongDetails = () => {
               </Text>
             </Flex>
             <Flex padding={2} fontSize={"sm"} gap={2} alignItems={"center"}>
-              <Badge variant={'outline'} colorScheme="green">
+              <Badge variant={"outline"} colorScheme="green">
                 {songDetails?.data[0]?.primaryArtists}
               </Badge>
-              
-              <Badge variant={'outline'} colorScheme="purple">
-               <Badge>
-                </Badge>ALBUM: {songDetails?.data[0]?.album.name}
+              <Badge variant={"outline"} colorScheme="purple">
+                ALBUM: {songDetails?.data[0]?.album.name}
               </Badge>
             </Flex>
           </Flex>

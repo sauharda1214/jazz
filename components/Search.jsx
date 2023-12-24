@@ -1,5 +1,6 @@
-import { Box, Input } from "@chakra-ui/react";
+import { Box, Flex, IconButton, Input } from "@chakra-ui/react";
 import Options from "./Options";
+import { FaSearch } from "react-icons/fa";
 
 const Search = () => {
 
@@ -16,6 +17,7 @@ const Search = () => {
       zIndex={"1001"}
     >
       <Options />
+      <Flex maxW={'md'} alignItems={'center'} gap={3}>
       <Input
         isTruncated
         placeholder={`Search for albums, artists, songs`}
@@ -23,8 +25,12 @@ const Search = () => {
         variant={"filled"}
         rounded={"full"}
         mr={3}
+        w={'100%'}
 
       />
+      <IconButton mr={2} icon={<FaSearch/>}/>
+      </Flex>
+     
       <Box mr={3}></Box>
     </Box>
   );

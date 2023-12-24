@@ -21,7 +21,7 @@ import { BsDownload } from "react-icons/bs";
 import { downloadSong } from "../utils/downloadSongs";
 
 const ArtistDetails = () => {
-  const { id:artistID } = useParams();
+  const { id: artistID } = useParams();
   const [artist, setArtist] = useState(null);
   const [artistSongs, setArtistSongs] = useState(null);
 
@@ -139,7 +139,7 @@ const ArtistSongsCard = ({ song, index }) => {
       document.title = `${song.primaryArtists} - ${song.name}`;
       setCurrentSong({
         songUrl: song.downloadUrl[4].link,
-        songId:song.id,
+        songId: song.id,
         artistName: song.primaryArtists,
         songName: song.name,
         thumbnail: song.image[2].link,
@@ -162,10 +162,10 @@ const ArtistSongsCard = ({ song, index }) => {
           height={"50px"}
           borderRadius={"md"}
           objectFit="cover"
-          src={ song.image[2].link}
+          src={song.image[2].link}
           mr={0}
         />
-        <Box isTruncated display={'flex'} alignItems={"center"} gap={4} ml={2}>
+        <Box isTruncated display={"flex"} alignItems={"center"} gap={4} ml={2}>
           <Text onClick={handlePlayClick} isTruncated>
             {song.name}
           </Text>

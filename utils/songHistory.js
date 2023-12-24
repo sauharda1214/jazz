@@ -1,4 +1,4 @@
 
-let songHitory = [];
+let songHistory = [];
 
-export default songHitory
+export default songHistory
