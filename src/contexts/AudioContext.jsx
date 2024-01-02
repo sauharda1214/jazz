@@ -1,6 +1,5 @@
 // AudioContext.js
-import  { createContext, useState } from 'react';
-
+import { createContext, useState } from "react";
 
 export const AudioContext = createContext();
 
@@ -8,12 +7,12 @@ export const AudioContext = createContext();
 export const AudioProvider = ({ children }) => {
   const [currentSong, setCurrentSong] = useState({
     songUrl: "",
+    songId: "",
+    thumbnail: "",
     artistName: "",
     songName: "",
-    thumbnail: "",
     isMusicAvailable: false,
-    isPlaylist:false,
-    isAlbum:false,
+    artistID:"",
   });
 
   return (

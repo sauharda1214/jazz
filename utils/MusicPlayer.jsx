@@ -49,6 +49,7 @@ const MusicPlayer = () => {
     artistID,
   } = currentSong;
 
+
   if (songUrl != "") {
     const isSongInHistory = songHistory.some(
       (historyItem) => historyItem.songId === songId
@@ -167,7 +168,7 @@ const MusicPlayer = () => {
       bottom={0}
       left={0}
       width="100vw"
-      height="120px"
+      height="110px"
       padding="10px"
       bgColor="gray.800"
       display="flex"
@@ -247,7 +248,7 @@ const MusicPlayer = () => {
               isDisabled={!isMusicAvailable} // Disable when no music
             />
           </HStack>
-          {/* Replace Chakra UI Slider with input type="range" */}
+
           <input
             type="range"
             min="0"

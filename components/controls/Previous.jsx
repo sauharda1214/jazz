@@ -4,13 +4,16 @@ import { useContext } from "react";
 
 const Previous = () => {
   const { setCurrentSong } = useContext(AudioContext);
+
   const handleClick = () => {
     const storedHistory = JSON.parse(sessionStorage.getItem("songHistory"));
-    if (storedHistory && storedHistory.length >1) {
 
-      const lastSong = storedHistory[storedHistory.length -= 2];
+    if (storedHistory && storedHistory.length > 1) {
+      const updatedHistory = [...storedHistory];
+      updatedHistory.pop(); // Remove the last song from history
 
-      // Assuming setCurrentSong expects an object with song details
+      const lastSong = updatedHistory[updatedHistory.length - 1];
+
       setCurrentSong({
         songUrl: lastSong.songUrl,
         songId: lastSong.songId,
@@ -21,9 +24,8 @@ const Previous = () => {
         artistID: lastSong.artistID,
       });
 
-      console.log(lastSong)
+      sessionStorage.setItem("songHistory", JSON.stringify(updatedHistory));
     }
-    
   };
 
   return (

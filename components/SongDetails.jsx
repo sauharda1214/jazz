@@ -12,10 +12,12 @@ import {
   Badge,
   Flex,
   Heading,
+  Link as ChakraLink,
 } from "@chakra-ui/react";
 import { FaHeart, FaPlay } from "react-icons/fa";
 import { BsDownload } from "react-icons/bs";
 import { downloadSong } from "../utils/downloadSongs";
+import { Link as ReactRouterLink } from "react-router-dom";
 
 const SongDetails = () => {
   const { id: songId } = useParams();
@@ -96,8 +98,11 @@ const SongDetails = () => {
           my={4}
         />
         <Flex alignItems={"flex-start"} direction={"column"}>
-          <Heading isTruncated w={"100%"} textAlign={"center"}>
+          <Heading fontSize={'x-large'}  isTruncated w={"100%"} textAlign={"center"}>
+            <span>
             {songDetails?.data[0]?.name}
+            </span>
+            
           </Heading>
           <Flex
             justifyContent={"center"}
@@ -105,6 +110,7 @@ const SongDetails = () => {
             fontWeight="bold"
             fontSize="2xl"
             flexDir={"column"}
+            mt={3}
           >
             <Text p={2} display={"flex"} gap={2}>
               <Badge colorScheme="green" variant="subtle">
@@ -123,12 +129,24 @@ const SongDetails = () => {
               </Text>
             </Flex>
             <Flex padding={2} fontSize={"sm"} gap={2} alignItems={"center"}>
-              <Badge variant={"outline"} colorScheme="green">
-                {songDetails?.data[0]?.primaryArtists}
+              <ChakraLink
+                as={ReactRouterLink}
+                to={`/artist/${songDetails?.data[0]?.primaryArtistsId}`}
+              >
+                <Badge colorScheme="teal">
+                  {songDetails?.data[0]?.primaryArtists}
+                </Badge>
+              </ChakraLink>
+              <ChakraLink as={ReactRouterLink} to={`/album/${songDetails?.data[0]?.album.id}`}>
+              <Badge
+                className="marquee"
+                variant={"outline"}
+                colorScheme="purple"
+              >
+                <span>ALBUM: {songDetails?.data[0]?.album.name}</span>
               </Badge>
-              <Badge variant={"outline"} colorScheme="purple">
-                ALBUM: {songDetails?.data[0]?.album.name}
-              </Badge>
+              </ChakraLink>
+              
             </Flex>
           </Flex>
 

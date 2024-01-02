@@ -5,26 +5,28 @@ import { useContext } from "react";
 const Next = () => {
   const { setCurrentSong } = useContext(AudioContext);
 
-  const handleClick = () => {
-    const storedHistory = JSON.parse(sessionStorage.getItem("songHistory"));
+const handleClick = () => {
+  const storedHistory = JSON.parse(sessionStorage.getItem("songHistory"));
 
-    // Check if storedHistory is not empty
-    if (storedHistory && storedHistory.length >= 1) {
-      const nextSong = storedHistory[storedHistory.length - 1];
+  if (storedHistory && storedHistory.length > 1) {
+    const updatedHistory = [...storedHistory];
+    updatedHistory.pop(); // Remove the last song from history
 
-      // Assuming setCurrentSong expects an object with song details
-      setCurrentSong({
-        songUrl: nextSong.songUrl,
-        songId: nextSong.songId,
-        artistName: nextSong.artistName,
-        songName: nextSong.songName,
-        thumbnail: nextSong.thumbnail,
-        isMusicAvailable: true,
-        artistID: nextSong.artistID,
-      });
+    const nextSong = updatedHistory[updatedHistory.length - 1];
 
-    }
-  };
+    setCurrentSong({
+      songUrl: nextSong.songUrl,
+      songId: nextSong.songId,
+      artistName: nextSong.artistName,
+      songName: nextSong.songName,
+      thumbnail: nextSong.thumbnail,
+      isMusicAvailable: true,
+      artistID: nextSong.artistID,
+    });
+
+    sessionStorage.setItem("songHistory", JSON.stringify(updatedHistory));
+  }
+};
 
   return <FaForward onClick={handleClick} />;
 };
