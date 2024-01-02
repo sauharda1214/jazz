@@ -142,6 +142,7 @@ const SongDetails = () => {
                 className="marquee"
                 variant={"outline"}
                 colorScheme="purple"
+                w={'150px'}
               >
                 <span>ALBUM: {songDetails?.data[0]?.album.name}</span>
               </Badge>

@@ -4,7 +4,6 @@ import {
   Box,
   Image,
   Text,
-  Link,
   IconButton,
   Link as ChakraLink,
 } from "@chakra-ui/react";
@@ -31,7 +30,7 @@ const TrendingSongCard = ({ song }) => {
         document.title = `${song.primaryArtists[0].name} - ${song.name}`;
         setCurrentSong({
           songUrl: data?.data[0]?.downloadUrl[4]?.link,
-          songId:song.id,
+          songId: song.id,
           artistName: song.primaryArtists[0].name,
           songName: song.name,
           thumbnail: song.image[2].link,
@@ -52,7 +51,7 @@ const TrendingSongCard = ({ song }) => {
         size={"sm"}
         m={2}
         onClick={() => {
-          downloadSong(song.url, song.name,"");
+          downloadSong(song.url, song.name, "");
         }}
         isRound
         icon={<BsDownload />}
@@ -62,15 +61,9 @@ const TrendingSongCard = ({ song }) => {
         src={song.image[2].link}
         alt={song.name}
       />
-      <Link
-        onClick={handlePlayClick}
-        fontSize="xl"
-        fontWeight="semibold"
-        mt="2"
-        isExternal
-      >
-        <Text maxW={"100%"}>{song.name}</Text>
-      </Link>
+
+      <Text cursor={'pointer'} onClick={handlePlayClick} maxW={"100%"}>{song.name}</Text>
+
       <ChakraLink as={ReactRouterLink} to={`/artist/${artistID}`}>
         {song.primaryArtists[0].name}
       </ChakraLink>

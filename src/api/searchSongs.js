@@ -7,8 +7,7 @@ export const searchSongs = async (query) => {
   const apiUrl = `https://saavn.me/search`;
 
   try {
-    const [allResponse, songsResponse, albumsResponse, artistsResponse, playlistsResponse] = await Promise.all([
-      fetch(`https://jsv-api.vercel.app/search/all?query=${query}`),
+    const [ songsResponse, albumsResponse, artistsResponse, playlistsResponse] = await Promise.all([
       fetch(`${apiUrl}/songs?query=${query}`),
       fetch(`${apiUrl}/albums?query=${query}`),
       fetch(`https://jsv-api.vercel.app/search/artists?query=${query}`),
@@ -16,7 +15,6 @@ export const searchSongs = async (query) => {
     ]);
 
     const responses = {
-      all: await allResponse.json(),
       songs: await songsResponse.json(),
       albums: await albumsResponse.json(),
       artists: await artistsResponse.json(),
